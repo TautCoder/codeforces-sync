@@ -1,0 +1,29 @@
+name: Codeforces Rating Notifier
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"   # runs every 10 minutes
+  workflow_dispatch:        # lets you run manually
+
+jobs:
+  check-rating:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: python -m pip install requests
+
+      - name: Run script
+        env:
+          CF_API_KEY: ${{ secrets.CF_API_KEY }}
+          CF_API_SECRET: ${{ secrets.CF_API_SECRET }}
+          CF_HANDLE: ${{ secrets.CF_HANDLE }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: python rating-check.py
