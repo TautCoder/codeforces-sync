@@ -1,4 +1,4 @@
-# 📄 **README (Professional Version)**
+# 📄 **README**
 
 **Project: Codeforces Auto Sync**
 
